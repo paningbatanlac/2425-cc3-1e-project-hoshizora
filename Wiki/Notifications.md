@@ -49,4 +49,3 @@ public class Notification {
         System.out.println("Message: " + message);
     }
 }
-
