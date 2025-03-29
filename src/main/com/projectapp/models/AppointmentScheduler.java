@@ -56,7 +56,7 @@ public class AppointmentScheduler {
         Appointment newApp = dialog.getAppointment();
         if (newApp != null) {
             appointments.add(newApp);
-            saveAppointments();
+            saveAppointments(); // Save after adding
             loadTable();
         }
     }
@@ -69,7 +69,7 @@ public class AppointmentScheduler {
             Appointment updatedApp = dialog.getAppointment();
             if (updatedApp != null) {
                 appointments.set(selectedRow, updatedApp);
-                saveAppointments();
+                saveAppointments(); // Save after editing
                 loadTable();
             }
         } else {
@@ -81,7 +81,7 @@ public class AppointmentScheduler {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
             appointments.remove(selectedRow);
-            saveAppointments();
+            saveAppointments(); // Save after deleting
             loadTable();
         } else {
             JOptionPane.showMessageDialog(frame, "Select an appointment to delete.");
@@ -91,7 +91,20 @@ public class AppointmentScheduler {
     private ArrayList<Appointment> loadAppointments() {
         ArrayList<Appointment> list = new ArrayList<>();
         File file = new File(FILE_NAME);
-        if (file.exists()) {
+        
+        // Check if the file exists
+        if (!file.exists()) {
+            // Create the file with an empty JSON array if it doesn't exist
+            try {
+                file.createNewFile(); // Create the file
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write("[]"); // Write an empty JSON array
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // If the file exists, read the appointments from it
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 StringBuilder jsonText = new StringBuilder();
                 String line;
@@ -121,9 +134,9 @@ public class AppointmentScheduler {
             obj.put("date", app.getDate());
             obj.put("time", app.getTime());
             obj.put("status", app.getStatus());
-            obj.put("clientID", app.getClient().getUser ID());
+            obj.put("clientID", app.getClient().getUser  ID());
             obj.put("clientName", app.getClient().getName());
-            obj.put("staffID", app.getStaff().getUser ID());
+            obj.put("staffID", app.getStaff().getUser  ID());
             obj.put("staffName", app.getStaff().getName());
             obj.put("serviceID", app.getService().getServiceID());
             obj.put("serviceName", app.getService().getName());
