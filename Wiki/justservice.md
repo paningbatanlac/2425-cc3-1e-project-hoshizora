@@ -11,14 +11,6 @@ public class Service {
         this.price = price;
     }
 
-    public String getServiceDetails() {
-        return "Service ID: " + serviceID + 
-               "\nName: " + name + 
-               "\nDescription: " + description + 
-               "\nPrice: $" + price;
-    }
-
-    // Getters and setters
     public String getServiceID() {
         return serviceID;
     }
@@ -49,5 +41,12 @@ public class Service {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getServiceDetails() {
+        return "Service ID: " + serviceID + 
+               "\nName: " + name + 
+               "\nDescription: " + description + 
+               "\nPrice: $" + price;
     }
 }
