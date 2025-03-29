@@ -13,11 +13,11 @@ public class User {
         this.role = role;
     }
 
-    public String getUserID() {
+    public String getUser ID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUser ID(String userID) {
         this.userID = userID;
     }
 
@@ -53,11 +53,7 @@ public class User {
         this.role = role;
     }
 
-    public void bookAppointment(String appointmentID) {
-        System.out.println(name + " has booked an appointment with ID: " + appointmentID);
-    }
-
-    public void cancelAppointment(String appointmentID) {
-        System.out.println(name + " has canceled the appointment with ID: " + appointmentID);
+    public void displayUser Info() {
+        System.out.println("User  ID: " + userID + " | Name: " + name + " | Email: " + email + " | Phone: " + phone + " | Role: " + role);
     }
 }
