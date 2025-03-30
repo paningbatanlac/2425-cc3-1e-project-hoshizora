@@ -1,3 +1,5 @@
+package com.projectapp;
+
 public class Notification {
     private String serviceID;
     private String notificationID;

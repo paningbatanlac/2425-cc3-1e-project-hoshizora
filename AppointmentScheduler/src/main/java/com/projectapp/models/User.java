@@ -1,3 +1,5 @@
+package com.projectapp.models;
+
 public class User {
     private String userID;
     private String name;

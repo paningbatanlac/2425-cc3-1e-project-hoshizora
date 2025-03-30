@@ -1,3 +1,5 @@
+package com.projectapp.models;
+
 public class Service {
     private String serviceID;
     private String name;
