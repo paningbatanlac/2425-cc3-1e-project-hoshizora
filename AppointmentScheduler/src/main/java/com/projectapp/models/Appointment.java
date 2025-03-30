@@ -1,3 +1,5 @@
+package com.projectapp.services;
+
 public class Appointment {
     private String appointmentID;
     private String date;
