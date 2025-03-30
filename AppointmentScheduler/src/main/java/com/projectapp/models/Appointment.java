@@ -1,3 +1,5 @@
+package com.projectapp.models;
+
 public class Appointment {
     private String appointmentID;
     private String date;

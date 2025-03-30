@@ -1,3 +1,5 @@
+package com.projectapp;
+
 public class Payment {
     private String paymentID;
     private double amount;
