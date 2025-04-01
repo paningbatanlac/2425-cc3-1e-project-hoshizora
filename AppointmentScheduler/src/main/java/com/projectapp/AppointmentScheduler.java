@@ -7,6 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import com.projectapp.models.Appointment;
+import com.projectapp.models.User;
+import com.projectapp.models.Service;
+import com.projectapp.services.AppointmentDialog;
 
 public class AppointmentScheduler {
     private JFrame frame;
@@ -136,9 +140,9 @@ public class AppointmentScheduler {
             obj.put("date", app.getDate());
             obj.put("time", app.getTime());
             obj.put("status", app.getStatus());
-            obj.put("clientID", app.getClient().getUser  ID());
+            obj.put("clientID", app.getClient().getUserID());
             obj.put("clientName", app.getClient().getName());
-            obj.put("staffID", app.getStaff().getUser  ID());
+            obj.put("staffID", app.getStaff().getUserID());
             obj.put("staffName", app.getStaff().getName());
             obj.put("serviceID", app.getService().getServiceID());
             obj.put("serviceName", app.getService().getName());
