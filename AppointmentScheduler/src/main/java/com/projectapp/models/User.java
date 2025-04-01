@@ -15,11 +15,11 @@ public class User {
         this.role = role;
     }
 
-    public String getUser ID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUser ID(String userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -55,7 +55,7 @@ public class User {
         this.role = role;
     }
 
-    public void displayUser Info() {
+    public void displayUserInfo() {
         System.out.println("User  ID: " + userID + " | Name: " + name + " | Email: " + email + " | Phone: " + phone + " | Role: " + role);
     }
 }
