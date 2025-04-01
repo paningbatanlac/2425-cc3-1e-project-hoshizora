@@ -1,4 +1,4 @@
-package com.projectapp:
+    package com.proejctapp;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -136,9 +136,9 @@ public class AppointmentScheduler {
             obj.put("date", app.getDate());
             obj.put("time", app.getTime());
             obj.put("status", app.getStatus());
-            obj.put("clientID", app.getClient().getUser  ID());
+            obj.put("clientID", app.getClient().getUserID());
             obj.put("clientName", app.getClient().getName());
-            obj.put("staffID", app.getStaff().getUser  ID());
+            obj.put("staffID", app.getStaff().getUserID());
             obj.put("staffName", app.getStaff().getName());
             obj.put("serviceID", app.getService().getServiceID());
             obj.put("serviceName", app.getService().getName());
