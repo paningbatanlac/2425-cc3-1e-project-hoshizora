@@ -7,6 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import com.projectapp.models.User;
+import com.projectapp.models.Service;
+import com.projectapp.models.Appointment;
+import com.projectapp.services.AppointmentDialog;
 
 public class AppointmentScheduler {
     private JFrame frame;

@@ -2,6 +2,9 @@ package com.projectapp.services;
 
 import javax.swing.*;
 import java.awt.*;
+import com.projectapp.models.Appointment;
+import com.projectapp.models.User;
+import com.projectapp.models.Service;
 
 public class AppointmentDialog extends JDialog {
     private JTextField appointmentIDField, dateField, timeField;

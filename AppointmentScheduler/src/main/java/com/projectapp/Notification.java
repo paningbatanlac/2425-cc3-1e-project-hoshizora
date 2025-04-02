@@ -1,5 +1,7 @@
 package com.projectapp;
 
+import com.projectapp.models.User;
+
 public class Notification {
     private String serviceID;
     private String notificationID;
