@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.projectapp.models.User;
-import com.projectapp.models.Service;
 import com.projectapp.models.Appointment;
+import com.projectapp.models.Service;
+import com.projectapp.models.User;
 import com.projectapp.services.AppointmentDialog;
 
 public class AppointmentScheduler {
@@ -19,35 +19,72 @@ public class AppointmentScheduler {
     private ArrayList<Appointment> appointments;
     private static final String FILE_NAME = "appointments.json";
 
+    private User[] clients = {
+        new User("C001", "John Doe", "john@example.com", "1234567890", "Client", null),
+        new User("C002", "Jane Smith", "jane@example.com", "0987654321", "Client", null)
+    };
+
+    private User[] staffMembers = {
+        new User("S001", "Alice Johnson", "alice@example.com", "1112223333", "Staff", null),
+        new User("S002", "Bob Brown", "bob@example.com", "4445556666", "Staff", null)
+    };
+
+    private Service[] services = {
+        new Service("SRV001", "Consultation", "Initial consultation service", 100.0),
+        new Service("SRV002", "Follow-up", "Follow-up consultation service", 50.0)
+    };
+
     public AppointmentScheduler() {
         appointments = loadAppointments();
         frame = new JFrame("Appointment Scheduler");
-        frame.setSize(600, 400);
+        frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        
+
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(70, 130, 180));
+        JLabel titleLabel = new JLabel("Appointment Scheduler");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        headerPanel.add(titleLabel);
+        frame.add(headerPanel, BorderLayout.NORTH);
+
         model = new DefaultTableModel(new String[]{"ID", "Client Name", "Date", "Time", "Status"}, 0);
         table = new JTable(model);
         loadTable();
         
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
-        JPanel panel = new JPanel();
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
         JButton addButton = new JButton("Add");
         JButton editButton = new JButton("Edit");
         JButton deleteButton = new JButton("Delete");
-        panel.add(addButton);
-        panel.add(editButton);
-        panel.add(deleteButton);
+
+        customizeButton(addButton);
+        customizeButton(editButton);
+        customizeButton(deleteButton);
         
-        frame.add(panel, BorderLayout.SOUTH);
+        buttonPanel.add(addButton);
+        buttonPanel.add(editButton);
+        buttonPanel.add(deleteButton);
         
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
         addButton.addActionListener(e -> addAppointment());
         editButton.addActionListener(e -> editAppointment());
         deleteButton.addActionListener(e -> deleteAppointment());
         
         frame.setVisible(true);
+    }
+
+    private void customizeButton(JButton button) {
+        button.setBackground(new Color(100, 149, 237));
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
     }
 
     private void loadTable() {
@@ -58,11 +95,11 @@ public class AppointmentScheduler {
     }
 
     private void addAppointment() {
-        AppointmentDialog dialog = new AppointmentDialog(frame, "Add Appointment", null);
+        AppointmentDialog dialog = new AppointmentDialog(frame, "Add Appointment", null, clients, staffMembers, services);
         Appointment newApp = dialog.getAppointment();
         if (newApp != null) {
             appointments.add(newApp);
-            saveAppointments(); // Save after adding
+            saveAppointments();
             loadTable();
         }
     }
@@ -71,11 +108,11 @@ public class AppointmentScheduler {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
             Appointment existingApp = appointments.get(selectedRow);
-            AppointmentDialog dialog = new AppointmentDialog(frame, "Edit Appointment", existingApp);
+            AppointmentDialog dialog = new AppointmentDialog(frame, "Edit Appointment", existingApp, clients, staffMembers, services);
             Appointment updatedApp = dialog.getAppointment();
             if (updatedApp != null) {
                 appointments.set(selectedRow, updatedApp);
-                saveAppointments(); // Save after editing
+                saveAppointments();
                 loadTable();
             }
         } else {
@@ -87,7 +124,7 @@ public class AppointmentScheduler {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
             appointments.remove(selectedRow);
-            saveAppointments(); // Save after deleting
+            saveAppointments();
             loadTable();
         } else {
             JOptionPane.showMessageDialog(frame, "Select an appointment to delete.");
@@ -98,19 +135,16 @@ public class AppointmentScheduler {
         ArrayList<Appointment> list = new ArrayList<>();
         File file = new File(FILE_NAME);
         
-        // Check if the file exists
         if (!file.exists()) {
-            // Create the file with an empty JSON array if it doesn't exist
             try {
-                file.createNewFile(); // Create the file
+                file.createNewFile();
                 try (FileWriter writer = new FileWriter(file)) {
-                    writer.write("[]"); // Write an empty JSON array
+                    writer.write("[]");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            // If the file exists, read the appointments from it
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 StringBuilder jsonText = new StringBuilder();
                 String line;
@@ -120,8 +154,8 @@ public class AppointmentScheduler {
                 JSONArray jsonArray = new JSONArray(jsonText.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    User client = new User(obj.getString("clientID"), obj.getString("clientName"), "", "", "Client");
-                    User staff = new User(obj.getString("staffID"), obj.getString("staffName"), "", "", "Staff");
+                    User client = new User(obj.getString("clientID"), obj.getString("clientName"), "", "", "Client", line);
+                    User staff = new User(obj.getString("staffID"), obj.getString("staffName"), "", "", "Staff", line);
                     Service service = new Service(obj.getString("serviceID"), obj.getString("serviceName"), "", 0);
                     list.add(new Appointment(obj.getString("appointmentID"), obj.getString("date"), obj.getString("time"), client, staff, service));
                 }
@@ -153,9 +187,5 @@ public class AppointmentScheduler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new AppointmentScheduler();
     }
 }

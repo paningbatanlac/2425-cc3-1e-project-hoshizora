@@ -3,8 +3,8 @@ package com.projectapp;
 public class Payment {
     private String paymentID;
     private double amount;
-    private String method; // Cash, Card, Online
-    private String status; // Pending, Paid, Failed
+    private String method;
+    private String status;
 
     public Payment(String paymentID, double amount, String method, String status) {
         this.paymentID = paymentID;
@@ -31,7 +31,6 @@ public class Payment {
         }
     }
 
-    // Getters and Setters
     public String getPaymentID() {
         return paymentID;
     }

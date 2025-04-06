@@ -12,9 +12,10 @@ public class AppointmentDialog extends JDialog {
     private JComboBox<Service> serviceComboBox;
     private Appointment appointment;
 
-    public AppointmentDialog(JFrame parent, String title, Appointment app) {
+    public AppointmentDialog(JFrame parent, String title, Appointment app, User[] clients, User[] staffMembers, Service[] services) {
         super(parent, title, true);
-        setLayout(new GridLayout(6, 2));
+        setLayout(new GridLayout(0, 2));
+        setBackground(new Color(240, 240, 240));
 
         add(new JLabel("Appointment ID:"));
         appointmentIDField = new JTextField();
@@ -29,15 +30,15 @@ public class AppointmentDialog extends JDialog {
         add(timeField);
 
         add(new JLabel("Client:"));
-        clientComboBox = new JComboBox<>(); // Populate with User instances
+        clientComboBox = new JComboBox<>(clients);
         add(clientComboBox);
 
         add(new JLabel("Staff:"));
-        staffComboBox = new JComboBox<>(); // Populate with User instances
+        staffComboBox = new JComboBox<>(staffMembers);
         add(staffComboBox);
 
         add(new JLabel("Service:"));
-        serviceComboBox = new JComboBox<>(); // Populate with Service instances
+        serviceComboBox = new JComboBox<>(services);
         add(serviceComboBox);
 
         JButton saveButton = new JButton("Save");

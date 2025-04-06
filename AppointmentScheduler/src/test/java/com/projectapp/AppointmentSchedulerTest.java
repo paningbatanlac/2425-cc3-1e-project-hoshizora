@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.*;
 import java.util.ArrayList;
+import com.projectapp.models.Appointment;
+import com.projectapp.models.User;
+import com.projectapp.models.Service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
