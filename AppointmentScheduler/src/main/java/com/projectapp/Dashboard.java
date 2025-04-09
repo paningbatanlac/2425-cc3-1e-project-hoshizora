@@ -1,8 +1,7 @@
 package com.projectapp;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
 
 public class Dashboard {
     private JFrame frame;
@@ -91,7 +90,7 @@ public class Dashboard {
         // Action Listeners for Buttons
         viewAppointmentsButton.addActionListener(e -> viewAppointments());
         addAppointmentButton.addActionListener(e -> addAppointment());
-        settingsButton.addActionListener(e -> openSettings());
+        settingsButton.addActionListener(e -> openSettings());  // Open Settings when clicked
         logoutButton.addActionListener(e -> logout());
 
         // Final setup
@@ -101,15 +100,13 @@ public class Dashboard {
 
     // View Appointments: Show a list of appointments (This could be extended later)
     private void viewAppointments() {
-        String appointments = "1. Appointment with Jane Smith\n2. Appointment with Alex Brown\n3. Appointment with John Doe"; // Placeholder
-                                                                                                                              // data
+        String appointments = "1. Appointment with Jane Smith\n2. Appointment with Alex Brown\n3. Appointment with John Doe"; // Placeholder data
         JOptionPane.showMessageDialog(frame, "Upcoming Appointments:\n" + appointments);
     }
 
     // Add Appointment: Placeholder for adding an appointment
     private void addAppointment() {
-        // Open a new dialog or form to add an appointment (for simplicity, we'll show a
-        // message for now)
+        // Open a new dialog or form to add an appointment (for simplicity, we'll show a message for now)
         String newAppointment = JOptionPane.showInputDialog(frame,
                 "Enter new appointment details (e.g., Client Name, Date, Time):");
         if (newAppointment != null && !newAppointment.isEmpty()) {
@@ -119,10 +116,9 @@ public class Dashboard {
         }
     }
 
-    // Open Settings: Placeholder for opening settings
+    // Open Settings: Now opens the actual SettingsPage window
     private void openSettings() {
-        // Open a simple settings dialog (for now, just a placeholder message)
-        JOptionPane.showMessageDialog(frame, "Settings page is under construction.");
+        new SettingsPage().setVisible(true);  // Open the SettingsPage when button is clicked
     }
 
     // Logout: Handle user logout
@@ -148,4 +144,3 @@ class User {
         return name;
     }
 }
-
