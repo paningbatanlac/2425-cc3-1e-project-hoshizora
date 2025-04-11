@@ -46,7 +46,7 @@ public class SignUpDialog extends JDialog {
         String confirmPassword = new String(confirmPasswordField.getPassword());
 
         if (password.equals(confirmPassword) && !username.isEmpty() && !email.isEmpty()) {
-            User newUser  = new User(username, username, email, "", "Client", password);
+            User newUser  = new User(username, "Alice Smith", "", "", "Client", "");
             saveUser (newUser );
             JOptionPane.showMessageDialog(this, "Registration successful!");
             dispose();

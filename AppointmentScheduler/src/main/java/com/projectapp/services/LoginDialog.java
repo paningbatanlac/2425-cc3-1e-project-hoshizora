@@ -38,7 +38,6 @@ public class LoginDialog extends JDialog {
 
         if (validateUser (username, password)) {
             loginSuccessful = true;
-            JOptionPane.showMessageDialog(this, "Login successful!");
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password.");

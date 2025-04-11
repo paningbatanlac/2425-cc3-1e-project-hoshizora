@@ -1,6 +1,9 @@
 package com.projectapp.services;
 
 import javax.swing.*;
+
+import com.projectapp.Dashboard;
+
 import java.awt.*;
 
 public class AuthDialog extends JDialog {
@@ -22,6 +25,7 @@ public class AuthDialog extends JDialog {
             if (loginDialog.isLoginSuccessful()) {
                 loginSuccessful = true;
                 dispose();
+                SwingUtilities.invokeLater(() -> new Dashboard().createUI());
             }
         });
 

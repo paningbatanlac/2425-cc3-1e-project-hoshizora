@@ -19,28 +19,25 @@ public class AppointmentScheduler {
     private ArrayList<Appointment> appointments;
     private static final String FILE_NAME = "appointments.json";
 
-    private User[] clients = {
-        new User("C001", "John Doe", "john@example.com", "1234567890", "Client", null),
-        new User("C002", "Jane Smith", "jane@example.com", "0987654321", "Client", null)
-    };
+    private User[] clients;
+    private User[] staffMembers;
+    private Service[] services;
 
-    private User[] staffMembers = {
-        new User("S001", "Alice Johnson", "alice@example.com", "1112223333", "Staff", null),
-        new User("S002", "Bob Brown", "bob@example.com", "4445556666", "Staff", null)
-    };
-
-    private Service[] services = {
-        new Service("SRV001", "Consultation", "Initial consultation service", 100.0),
-        new Service("SRV002", "Follow-up", "Follow-up consultation service", 50.0)
-    };
-
-    public AppointmentScheduler() {
+    public AppointmentScheduler(User[] clients, User[] staffMembers, Service[] services) {
+        this.clients = clients;
+        this.staffMembers = staffMembers;
+        this.services = services;
         appointments = loadAppointments();
         frame = new JFrame("Appointment Scheduler");
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        setupUI();
+        frame.setVisible(true);
+    }
+
+    private void setupUI() {
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(70, 130, 180));
         JLabel titleLabel = new JLabel("Appointment Scheduler");
@@ -75,8 +72,6 @@ public class AppointmentScheduler {
         addButton.addActionListener(e -> addAppointment());
         editButton.addActionListener(e -> editAppointment());
         deleteButton.addActionListener(e -> deleteAppointment());
-        
-        frame.setVisible(true);
     }
 
     private void customizeButton(JButton button) {
